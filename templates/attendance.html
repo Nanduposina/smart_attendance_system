@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mark Attendance</title>
+</head>
+<body>
+    <h1>Mark Attendance</h1>
+
+    <form method="post" action="{{ url_for('attendance') }}">
+        <!-- Select course -->
+        <label for="course_id">Course:</label>
+        <select name="course_id" id="course_id" required>
+            <option value="">-- Select Course --</option>
+            {% for c in courses %}
+            <option value="{{ c.id }}">{{ c.course_name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <!-- Select date -->
+        <label for="attendance_date">Date:</label>
+        <input type="date" name="attendance_date" id="attendance_date" required>
+        <br><br>
+
+        <!-- Students list -->
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td>{{ s.roll_no }}</td>
+                    <td>{{ s.full_name }}</td>
+                    <td>
+                        <label>
+                            <input type="radio" name="status_{{ s.id }}" value="Present">
+                            Present
+                        </label>
+                        <label>
+                            <input type="radio" name="status_{{ s.id }}" value="Absent">
+                            Absent
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br>
+        <button type="submit">Save Attendance</button>
+    </form>
+
+    <p><a href="{{ url_for('home') }}">Back to Students List</a></p>
+</body>
+</html>

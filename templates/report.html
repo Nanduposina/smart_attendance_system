@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance Report</title>
+</head>
+<body>
+    <h1>Attendance Report</h1>
+
+    <form method="post" action="{{ url_for('report') }}">
+        <label for="course_id">Course:</label>
+        <select name="course_id" id="course_id" required>
+            <option value="">-- Select Course --</option>
+            {% for c in courses %}
+            <option value="{{ c.id }}"
+                {% if selected_course_id and selected_course_id|int == c.id %}selected{% endif %}>
+                {{ c.course_name }}
+            </option>
+            {% endfor %}
+        </select>
+        <button type="submit">View Report</button>
+    </form>
+
+    {% if report_rows %}
+        <h2>Report Details</h2>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Total Classes</th>
+                    <th>Present Count</th>
+                    <th>Attendance %</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in report_rows %}
+                <tr>
+                    <td>{{ r.roll_no }}</td>
+                    <td>{{ r.full_name }}</td>
+                    <td>{{ r.total_classes }}</td>
+                    <td>{{ r.present_count }}</td>
+                    <td>{{ r.percentage }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <p>
+        <a href="{{ url_for('home') }}">Students List</a> |
+        <a href="{{ url_for('attendance') }}">Mark Attendance</a>
+    </p>
+</body>
+</html>
