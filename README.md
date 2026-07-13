@@ -1,0 +1,1 @@
+Smart Attendance and Remainder System using Flask and MySQL.
