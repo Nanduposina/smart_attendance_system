@@ -22,6 +22,13 @@
     </form>
 
     {% if report_rows %}
+
+        <form method="post" action="{{ url_for('send_reminders') }}">
+            <input type="hidden" name="course_id" value="{{ selected_course_id }}">
+            <label for="threshold">Reminder threshold (%):</label>
+            <input type="number" name="threshold" id="threshold" value="75" min="0" max="100">
+            <button type="submit">Send Email Reminders</button>
+        </form>
         <h2>Report Details</h2>
         <table border="1" cellpadding="8">
             <thead>
