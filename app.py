@@ -25,6 +25,10 @@ def get_db_connection():
 
 @app.route("/")
 def home():
+    return render_template("dashboard.html")
+
+@app.route("/students")
+def students_page():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT roll_no, full_name, email, department, year_of_study FROM students;")

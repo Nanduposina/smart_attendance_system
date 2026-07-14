@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome, Anitha – Smart Attendance Dashboard</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 16px;">
+    <div style="background-color: #fff; padding: 16px; border: 1px solid #e5e7eb;">
+        <h3>Students</h3>
+        <p>View all registered students and their details.</p>
+        <button onclick="window.location.href='{{ url_for('students_page') }}'">Go to Students</button>
+    </div>
+
+    <div style="background-color: #fff; padding: 16px; border: 1px solid #e5e7eb;">
+        <h3>Mark Attendance</h3>
+        <p>Record attendance for any class and date.</p>
+        <button onclick="window.location.href='{{ url_for('attendance') }}'">Mark Attendance</button>
+    </div>
+
+    <div style="background-color: #fff; padding: 16px; border: 1px solid #e5e7eb;">
+        <h3>Attendance Report</h3>
+        <p>View attendance percentages and send reminders.</p>
+        <button onclick="window.location.href='{{ url_for('report') }}'">View Report</button>
+    </div>
+</div>
+{% endblock %}
