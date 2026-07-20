@@ -30,6 +30,7 @@
         </thead>
         <tbody>
             {% for r in report_rows %}
+        
             <tr>
                 <td>{{ r.roll_no }}</td>
                 <td>{{ r.full_name }}</td>
@@ -37,6 +38,19 @@
                 <td>{{ r.present_count }}</td>
                 <td>{{ r.percentage }}%</td>
             </tr>
+
+            <td>
+                {% if r.percentage < 75 %}
+                    <span style="padding:3px 8px; border-radius:999px; background:#fee2e2; color:#b91c1c; font-size:12px; font-weight:500;">
+                        {{ r.percentage }}%
+                    </span>
+                {% else %}
+                    <span style="padding:3px 8px; border-radius:999px; background:#dcfce7; color:#166534; font-size:12px; font-weight:500;">
+                        {{ r.percentage }}%
+                    </span>
+                {% endif %}
+            </td>
+
             {% endfor %}
         </tbody>
     </table>

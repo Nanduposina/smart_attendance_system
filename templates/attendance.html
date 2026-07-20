@@ -2,49 +2,56 @@
 {% block content %}
 <h2>Mark Attendance</h2>
 
-<form method="post" action="{{ url_for('attendance') }}">
-    <label for="course_id">Course:</label>
-    <select name="course_id" id="course_id" required>
-        <option value="">-- Select Course --</option>
-        {% for c in courses %}
-        <option value="{{ c.id }}">{{ c.course_name }}</option>
-        {% endfor %}
-    </select>
-    <br>
+<div style="background:var(--card-bg); padding:16px; border-radius:var(--radius); border:1px solid var(--border-soft); box-shadow:0 1px 3px rgba(15,23,42,0.08);">
+    <form method="post" action="{{ url_for('attendance') }}">
+        <div class="form-row">
+            <label for="course_id">Course:</label><br>
+            <select name="course_id" id="course_id" required>
+                <option value="">-- Select Course --</option>
+                {% for c in courses %}
+                <option value="{{ c.id }}">{{ c.course_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <label for="attendance_date">Date:</label>
-    <input type="date" name="attendance_date" id="attendance_date" required>
-    <br><br>
+        <div class="form-row">
+            <label for="attendance_date">Date:</label><br>
+            <input type="date" name="attendance_date" id="attendance_date" required>
+        </div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Roll No</th>
-                <th>Name</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for s in students %}
-            <tr>
-                <td>{{ s.roll_no }}</td>
-                <td>{{ s.full_name }}</td>
-                <td>
-                    <label>
-                        <input type="radio" name="status_{{ s.id }}" value="Present">
-                        Present
-                    </label>
-                    <label>
-                        <input type="radio" name="status_{{ s.id }}" value="Absent">
-                        Absent
-                    </label>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:8px;">
+            Choose Present / Absent for each student:
+        </p>
 
-    <br>
-    <button type="submit">Save Attendance</button>
-</form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td>{{ s.roll_no }}</td>
+                    <td>{{ s.full_name }}</td>
+                    <td>
+                        <label style="margin-right:8px;">
+                            <input type="radio" name="status_{{ s.id }}" value="Present"> Present
+                        </label>
+                        <label>
+                            <input type="radio" name="status_{{ s.id }}" value="Absent"> Absent
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top:12px;">
+            <button type="submit">Save Attendance</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

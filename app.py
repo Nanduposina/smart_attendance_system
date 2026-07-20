@@ -1,8 +1,10 @@
 from flask_mail import Mail, Message
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 
 app = Flask(__name__)
+
+app.secret_key = "a_very_secret_key_for_sessions"  # any random string
 
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -25,10 +27,14 @@ def get_db_connection():
 
 @app.route("/")
 def home():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
     return render_template("dashboard.html")
 
 @app.route("/students")
 def students_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT roll_no, full_name, email, department, year_of_study FROM students;")
@@ -39,6 +45,8 @@ def students_page():
 
 @app.route("/attendance", methods=["GET", "POST"])
 def attendance():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
@@ -75,6 +83,8 @@ def attendance():
 
 @app.route("/report", methods=["GET", "POST"])
 def report():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
@@ -133,6 +143,9 @@ def report():
 
 @app.route("/send_reminders", methods=["POST"])
 def send_reminders():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
     course_id = request.form.get("course_id")
     threshold = float(request.form.get("threshold", 75.0))  # default 75%
 
@@ -186,6 +199,39 @@ def send_reminders():
             mail.send(msg)
 
     return redirect(url_for("report"))
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    error = None
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute(
+            "SELECT id, username, password, role FROM users WHERE username = %s",
+            (username,)
+        )
+        user = cursor.fetchone()
+        cursor.close()
+        conn.close()
+
+        if user and user["password"] == password:  # later replace with hashed check
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
+            session["role"] = user["role"]
+            return redirect(url_for("home"))  # go to dashboard
+        else:
+            error = "Invalid username or password"
+
+    return render_template("login.html", error=error)
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 if __name__ == "__main__":
     app.run(debug=True)

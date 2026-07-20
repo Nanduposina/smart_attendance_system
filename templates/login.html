@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display:flex; justify-content:center; align-items:center; min-height:70vh;">
+    <div>
+        <h2 style="text-align:center;">College Management Login</h2>
+
+        <div style="background:var(--card-bg); padding:20px; border-radius:var(--radius); border:1px solid var(--border-soft); max-width:360px;">
+            {% if error %}
+            <p style="color:#b91c1c; font-size:13px; margin-bottom:8px;">{{ error }}</p>
+            {% endif %}
+
+            <form method="post" action="{{ url_for('login') }}">
+                <div class="form-row">
+                    <label for="username">Username</label><br>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="password">Password</label><br>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div style="margin-top:12px; text-align:center;">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

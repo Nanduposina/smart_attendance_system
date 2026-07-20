@@ -1,24 +1,72 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Welcome, Anitha – Smart Attendance Dashboard</h2>
+<p style="color: var(--text-muted); margin-bottom: 16px;">
+    Quick overview of students, classes, and attendance.
+</p>
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 16px;">
-    <div style="background-color: #fff; padding: 16px; border: 1px solid #e5e7eb;">
-        <h3>Students</h3>
-        <p>View all registered students and their details.</p>
-        <button onclick="window.location.href='{{ url_for('students_page') }}'">Go to Students</button>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+    <div style="background: var(--card-bg); padding: 16px; border-radius: var(--radius); border: 1px solid var(--border-soft); box-shadow: 0 1px 3px rgba(15,23,42,0.08);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <h3 style="margin:0 0 4px; font-size:16px;">Students</h3>
+                <p style="margin:0; font-size:13px; color: var(--text-muted);">
+                    View all registered students and their details.
+                </p>
+            </div>
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:18px;">
+                S
+            </div>
+        </div>
+        <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:var(--text-muted);">Total students</span>
+            <span style="font-size:18px; font-weight:600;">8</span>
+        </div>
+        <div style="margin-top:14px;">
+            <button onclick="window.location.href='{{ url_for('students_page') }}'">Go to Students</button>
+        </div>
     </div>
 
-    <div style="background-color: #fff; padding: 16px; border: 1px solid #e5e7eb;">
-        <h3>Mark Attendance</h3>
-        <p>Record attendance for any class and date.</p>
-        <button onclick="window.location.href='{{ url_for('attendance') }}'">Mark Attendance</button>
+    <div style="background: var(--card-bg); padding: 16px; border-radius: var(--radius); border: 1px solid var(--border-soft); box-shadow: 0 1px 3px rgba(15,23,42,0.08);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <h3 style="margin:0 0 4px; font-size:16px;">Mark Attendance</h3>
+                <p style="margin:0; font-size:13px; color: var(--text-muted);">
+                    Record attendance for any class and date.
+                </p>
+            </div>
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:18px;">
+                A
+            </div>
+        </div>
+        <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:var(--text-muted);">Total courses</span>
+            <span style="font-size:18px; font-weight:600;">4</span>
+        </div>
+        <div style="margin-top:14px;">
+            <button onclick="window.location.href='{{ url_for('attendance') }}'">Mark Attendance</button>
+        </div>
     </div>
 
-    <div style="background-color: #fff; padding: 16px; border: 1px solid #e5e7eb;">
-        <h3>Attendance Report</h3>
-        <p>View attendance percentages and send reminders.</p>
-        <button onclick="window.location.href='{{ url_for('report') }}'">View Report</button>
+    <div style="background: var(--card-bg); padding: 16px; border-radius: var(--radius); border: 1px solid var(--border-soft); box-shadow: 0 1px 3px rgba(15,23,42,0.08);">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <h3 style="margin:0 0 4px; font-size:16px;">Attendance Report</h3>
+                <p style="margin:0; font-size:13px; color: var(--text-muted);">
+                    View attendance percentages and send reminders.
+                </p>
+            </div>
+            <div style="width:32px; height:32px; border-radius:999px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:18px;">
+                R
+            </div>
+        </div>
+        <div style="margin-top:12px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:var(--text-muted);">Reminder threshold</span>
+            <span style="font-size:18px; font-weight:600;">75%</span>
+        </div>
+        <div style="margin-top:14px;">
+            <button onclick="window.location.href='{{ url_for('report') }}'">View Report</button>
+        </div>
     </div>
 </div>
 {% endblock %}
